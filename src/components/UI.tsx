@@ -73,7 +73,7 @@ export default function UI() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [addMove, keyBindings, listeningForKey, setKeyBinding]);
+  }, [addMove, keyBindings, listeningForKey, setKeyBinding, facingMode, setFacingMode]);
 
   const handleVirtualKey = (key: string) => {
     const move = `${key}${primeModifier ? "'" : ""}` as Move;
