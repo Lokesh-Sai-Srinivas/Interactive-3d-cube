@@ -8,7 +8,7 @@ const MiniCubeDisplay = ({ move, label }: { move: Move, label: string }) => (
   <div className="mini-cube-item">
      <div className="mini-cube-label">{label}</div>
      <div className="mini-cube-canvas-wrapper">
-        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+        <Canvas camera={{ position: [0, 0, 8], fov: 45 }} dpr={[1, 1]}>
            <ambientLight intensity={0.5} />
            <pointLight position={[10, 10, 10]} intensity={1.5} />
            <StandaloneCube move={move} />

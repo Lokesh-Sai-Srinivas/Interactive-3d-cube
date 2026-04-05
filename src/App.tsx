@@ -58,17 +58,22 @@ function DragController() {
 
 function CameraController() {
   const facingMode = useStore(state => state.facingMode);
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   
   useEffect(() => {
-    let pos = new THREE.Vector3(0, 0, 7); // face
-    if (facingMode === 'vertex') pos = new THREE.Vector3(4, 4, 4);
-    if (facingMode === 'edge') pos = new THREE.Vector3(0, 4.95, 4.95);
+    // If aspect ratio is portrait (mobile), increase camera distance to make it appear smaller!
+    const aspect = size.width / size.height;
+    const isMobile = aspect < 1;
+    const zoomFactor = isMobile ? 1.5 : 1;
+
+    let pos = new THREE.Vector3(0, 0, 7 * zoomFactor); // face
+    if (facingMode === 'vertex') pos = new THREE.Vector3(4 * zoomFactor, 4 * zoomFactor, 4 * zoomFactor);
+    if (facingMode === 'edge') pos = new THREE.Vector3(0, 4.95 * zoomFactor, 4.95 * zoomFactor);
     
     // Animate camera position smoothly? Or snap? Snapping is fine since DragController resets.
     camera.position.copy(pos);
     camera.lookAt(0, 0, 0);
-  }, [facingMode, camera]);
+  }, [facingMode, camera, size.width, size.height]);
 
   return null;
 }
@@ -83,7 +88,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 1.5]}>
         <CameraController />
         <DragController />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
