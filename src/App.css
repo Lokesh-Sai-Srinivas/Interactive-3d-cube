@@ -185,8 +185,10 @@
 }
 
 .large-modal {
-  min-width: 600px;
-  max-width: 90vw;
+  width: min(600px, 95vw);
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .mini-cube-grid {
@@ -359,8 +361,15 @@
 @media (max-width: 768px) {
   .mobile-controls {
     display: flex;
+    bottom: 80px;
   }
   .tutorial-overlay {
-    top: 30%;
+    top: 50%;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  .mini-cube-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

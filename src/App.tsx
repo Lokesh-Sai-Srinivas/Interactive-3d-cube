@@ -23,8 +23,9 @@ function DragController() {
       const dx = e.clientX - startMouse.current.x;
       const dy = e.clientY - startMouse.current.y;
       startMouse.current = { x: e.clientX, y: e.clientY };
-      targetRotation.current.x += dy * 0.005;
-      targetRotation.current.y += dx * 0.005;
+      const sensitivity = window.innerWidth < 768 ? 0.015 : 0.005;
+      targetRotation.current.x += dy * sensitivity;
+      targetRotation.current.y += dx * sensitivity;
     };
     const onUp = () => { dragging.current = false; };
     
@@ -88,7 +89,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 1.5]}>
+      <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, window.innerWidth < 768 ? 1 : 1.5]}>
         <CameraController />
         <DragController />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
@@ -104,6 +105,8 @@ function App() {
               scale={20} 
               blur={2} 
               far={4} 
+              frames={window.innerWidth < 768 ? 1 : Infinity}
+              resolution={window.innerWidth < 768 ? 256 : 512}
             />
           </group>
         </group>
