@@ -58,10 +58,14 @@ export default function UI() {
       const rawKey = e.key.toLowerCase();
       const isShift = e.shiftKey;
 
-      // Find which Move this key is bound to:
       const boundMove = Object.keys(keyBindings).find(m => keyBindings[m] === rawKey);
 
-      if (boundMove) {
+      if (boundMove === 'VIEW') {
+        const modes = ['face', 'vertex', 'edge'] as const;
+        // Need current facingMode, which we already get from useStore
+        const nextIndex = (modes.indexOf(facingMode) + 1) % modes.length;
+        setFacingMode(modes[nextIndex]);
+      } else if (boundMove) {
         const move = `${boundMove}${isShift ? "'" : ""}` as Move;
         addMove(move);
       }
@@ -179,7 +183,7 @@ export default function UI() {
 
                 {Object.keys(keyBindings).map((move) => (
                   <div className="setting-row" key={move}>
-                    <span className="setting-label">Move {move}</span>
+                    <span className="setting-label">{move === 'VIEW' ? 'Toggle Camera View' : `Move ${move}`}</span>
                     <button 
                       className={`setting-input ${listeningForKey === move ? 'listening' : ''}`}
                       onClick={() => setListeningForKey(move)}

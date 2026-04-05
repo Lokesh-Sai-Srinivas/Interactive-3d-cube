@@ -4,7 +4,8 @@ export type Move = 'L' | "L'" | 'R' | "R'" | 'U' | "U'" | 'D' | "D'" | 'F' | "F'
 export type FacingMode = 'face' | 'vertex' | 'edge';
 
 export const DEFAULT_BINDINGS: Record<string, string> = {
-  'L': 'l', 'R': 'r', 'U': 'u', 'D': 'd', 'F': 'f', 'B': 'b', 'M': 'm', 'X': 'x', 'Y': 'y', 'Z': 'z'
+  'L': 'l', 'R': 'r', 'U': 'u', 'D': 'd', 'F': 'f', 'B': 'b', 'M': 'm', 'X': 'x', 'Y': 'y', 'Z': 'z',
+  'VIEW': 'v'
 };
 
 interface AppState {
