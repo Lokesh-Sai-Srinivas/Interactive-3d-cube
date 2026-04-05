@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { ContactShadows, Environment } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import Cube from './components/Cube';
 import UI from './components/UI';
 import { useStore } from './store/rubiksStore';
@@ -23,7 +23,7 @@ function DragController() {
       const dx = e.clientX - startMouse.current.x;
       const dy = e.clientY - startMouse.current.y;
       startMouse.current = { x: e.clientX, y: e.clientY };
-      const sensitivity = window.innerWidth < 768 ? 0.015 : 0.005;
+      const sensitivity = window.innerWidth < 768 ? 0.025 : 0.005;
       targetRotation.current.x += dy * sensitivity;
       targetRotation.current.y += dx * sensitivity;
     };
@@ -81,6 +81,7 @@ function CameraController() {
 
 function App() {
   const goToTutorialPage = useStore((state) => state.goToTutorialPage);
+  const isMobile = window.innerWidth < 768;
 
   // Trigger tutorial just once on load
   useEffect(() => {
@@ -89,25 +90,17 @@ function App() {
 
   return (
     <div className="app-container">
-      <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, window.innerWidth < 768 ? 1 : 1.5]}>
+      <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, isMobile ? 1 : 1.5]}>
         <CameraController />
         <DragController />
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
-        <ambientLight intensity={0.5} />
-        <Environment preset="city" />
+        <pointLight position={[10, 10, 10]} intensity={isMobile ? 3 : 1.5} />
+        <ambientLight intensity={isMobile ? 2 : 0.5} />
+        <directionalLight position={[-10, -10, -10]} intensity={isMobile ? 1.5 : 0} />
+        {!isMobile && <Environment preset="city" />}
         
         <group name="view-wrapper">
           <group position={[0, -0.2, 0]}>
             <Cube />
-            <ContactShadows 
-              position={[0, -2, 0]} 
-              opacity={0.4} 
-              scale={20} 
-              blur={2} 
-              far={4} 
-              frames={window.innerWidth < 768 ? 1 : Infinity}
-              resolution={window.innerWidth < 768 ? 256 : 512}
-            />
           </group>
         </group>
       </Canvas>
