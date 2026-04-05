@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  rubiks-cube:
+    build: .
+    container_name: rubiks-cube
+    ports:
+      - "8080:80"
+    restart: unless-stopped
