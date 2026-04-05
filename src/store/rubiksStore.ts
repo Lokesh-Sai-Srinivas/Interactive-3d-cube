@@ -61,7 +61,6 @@ export const useStore = create<AppState>((set, get) => ({
   resetBindings: () => set({ keyBindings: { ...DEFAULT_BINDINGS } }),
   shuffle: () => {
     const faces = ['L', 'R', 'U', 'D', 'F', 'B'];
-    const modifiers = ['', "'", '2']; // 2 means doing it twice, but we'll stick to ' or '' for simplicity in our animation engine: just '' or "'"
     const validModifiers = ['', "'"];
     
     let lastFace = '';
