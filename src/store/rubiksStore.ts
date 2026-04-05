@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 export type Move = 'L' | "L'" | 'R' | "R'" | 'U' | "U'" | 'D' | "D'" | 'F' | "F'" | 'B' | "B'" | 'M' | "M'" | 'X' | "X'" | 'Y' | "Y'" | 'Z' | "Z'";
+export type FacingMode = 'face' | 'vertex' | 'edge';
 
 export const DEFAULT_BINDINGS: Record<string, string> = {
   'L': 'l', 'R': 'r', 'U': 'u', 'D': 'd', 'F': 'f', 'B': 'b', 'M': 'm', 'X': 'x', 'Y': 'y', 'Z': 'z'
@@ -13,6 +14,7 @@ interface AppState {
   isAnimating: boolean;
   isShuffling: boolean;
   showSettings: boolean;
+  facingMode: FacingMode;
   keyBindings: Record<string, string>; // Base move e.g. 'L' -> mapped key e.g. 'a'
   addMove: (move: Move) => void;
   popMove: () => void;
@@ -25,6 +27,7 @@ interface AppState {
   toggleSettings: () => void;
   setKeyBinding: (move: string, key: string) => void;
   resetBindings: () => void;
+  setFacingMode: (mode: FacingMode) => void;
 }
 
 export const useStore = create<AppState>((set, get) => ({
@@ -34,6 +37,7 @@ export const useStore = create<AppState>((set, get) => ({
   isAnimating: false,
   isShuffling: false,
   showSettings: false,
+  facingMode: 'face',
   keyBindings: { ...DEFAULT_BINDINGS },
   addMove: (move) => set((state) => ({ moveQueue: [...state.moveQueue, move] })),
   popMove: () => set((state) => {
@@ -58,7 +62,8 @@ export const useStore = create<AppState>((set, get) => ({
     newBindings[move] = key;
     return { keyBindings: newBindings };
   }),
-  resetBindings: () => set({ keyBindings: { ...DEFAULT_BINDINGS } }),
+  resetBindings: () => set({ keyBindings: { ...DEFAULT_BINDINGS }, facingMode: 'face' }),
+  setFacingMode: (mode) => set({ facingMode: mode }),
   shuffle: () => {
     const faces = ['L', 'R', 'U', 'D', 'F', 'B'];
     const validModifiers = ['', "'"];

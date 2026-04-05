@@ -33,6 +33,9 @@ export default function UI() {
   const setKeyBinding = useStore((state) => state.setKeyBinding);
   const resetBindings = useStore((state) => state.resetBindings);
 
+  const facingMode = useStore((state) => state.facingMode);
+  const setFacingMode = useStore((state) => state.setFacingMode);
+
   const [primeModifier, setPrimeModifier] = useState(false);
   const [listeningForKey, setListeningForKey] = useState<string | null>(null);
 
@@ -157,9 +160,23 @@ export default function UI() {
         <div className="tutorial-overlay large-modal">
           <button className="close-btn" onClick={toggleSettings}><X size={24} /></button>
           <div className="tutorial-content">
-             <h2>Keybindings</h2>
-             <p>Configure which keyboard keys trigger which moves. (Hold Shift to do a Prime move).</p>
+             <h2>Keybindings & View Settings</h2>
+             <p>Configure which keyboard keys trigger which moves, and customize the default viewing angle.</p>
              <div className="settings-grid">
+                <div className="setting-row" style={{ gridColumn: '1 / -1', background: '#e1e5f2' }}>
+                  <span className="setting-label">Default Camera Facing</span>
+                  <select 
+                    className="setting-input" 
+                    value={facingMode} 
+                    onChange={(e) => setFacingMode(e.target.value as any)}
+                    style={{ minWidth: '150px' }}
+                  >
+                    <option value="face">Face (Frontal View)</option>
+                    <option value="vertex">Vertex (Diagonal View)</option>
+                    <option value="edge">Edge View</option>
+                  </select>
+                </div>
+
                 {Object.keys(keyBindings).map((move) => (
                   <div className="setting-row" key={move}>
                     <span className="setting-label">Move {move}</span>

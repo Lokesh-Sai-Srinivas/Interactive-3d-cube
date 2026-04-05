@@ -56,6 +56,23 @@ function DragController() {
   return null;
 }
 
+function CameraController() {
+  const facingMode = useStore(state => state.facingMode);
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    let pos = new THREE.Vector3(0, 0, 7); // face
+    if (facingMode === 'vertex') pos = new THREE.Vector3(4, 4, 4);
+    if (facingMode === 'edge') pos = new THREE.Vector3(0, 4.95, 4.95);
+    
+    // Animate camera position smoothly? Or snap? Snapping is fine since DragController resets.
+    camera.position.copy(pos);
+    camera.lookAt(0, 0, 0);
+  }, [facingMode, camera]);
+
+  return null;
+}
+
 function App() {
   const goToTutorialPage = useStore((state) => state.goToTutorialPage);
 
@@ -66,7 +83,8 @@ function App() {
 
   return (
     <div className="app-container">
-      <Canvas camera={{ position: [4, 4, 4], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
+        <CameraController />
         <DragController />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
         <ambientLight intensity={0.5} />
