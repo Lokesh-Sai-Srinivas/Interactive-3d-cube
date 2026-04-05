@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+# ✨ Interactive 3D Rubik's Cube 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A stunning, fully-functional, and interactive 3D Rubik's Cube web application. Designed with modern aesthetics, an advanced animation engine, custom spring-back drag interactions, and highly isolated UI elements.
 
-Currently, two official plugins are available:
+**Created by: Ayika Lokesh Sai Srinivas**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
+- 🎮 **Premium Aesthetics**: Matte inner cores with high-gloss colorful outer "stickers".
+- 🕹️ **Spring-Back Camera**: Click and drag to inspect the cube from any angle. Once you release your mouse, the cube elegantly snaps back to its native alignment for precise puzzle checking.
+- ⚙️ **Custom Keybindings**: Completely remap your control suite dynamically using the interactive Settings menu.
+- 🎓 **Isolated Multi-Canvas Tutorials**: The help menu uses advanced multiple separate WebGL contexts to isolate continuously looping mini-cubes that demonstrate specific slice rotation behaviors without interrupting your active game state.
+- 🐋 **Docker Ready**: Complete, highly optimized 2-stage internal orchestration configuration for blazing fast and completely zero-bloat Nginx deployments.
 
-## React Compiler
+## 💻 Tech Stack
+- Frontend: **React**, **TypeScript**, **Vite**
+- 3D Engine: **Three.js**, **React Three Fiber (R3F)**, **Drei**
+- State Management: **Zustand**
+- Containerization: **Docker**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Usage & Development
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Standard Setup
+Ensure you have Node.js installed, then:
+```bash
+npm install
+npm run dev
 ```
+Access the local preview instantly at `http://localhost:5173`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Docker Production Setup
+Want to run the strictly compiled, lightweight production-grade engine natively over Nginx?
+```bash
+docker compose up -d --build
 ```
+Your 3D cube web-app is securely running detached at `http://localhost:8080`.
+
+## 📜 License & Credits
+
+This project is open-source and released to the public under the **MIT License**.
+Anyone is absolutely free to download, use, modify, or embed this 3D engineering in their own websites or servers!
+
+**The only requirement is that you must provide full credit to the original creator:** 
+*Ayika Lokesh Sai Srinivas*
